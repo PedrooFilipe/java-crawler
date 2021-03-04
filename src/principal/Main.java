@@ -10,7 +10,7 @@ import org.jsoup.nodes.Element;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JavaApplication1 {
+public class Main {
 
     private static String url = "https://acoescoronavirus.uniaodospalmares.al.gov.br";
     private static Map<String, Integer> casos = new HashMap<String, Integer>();
@@ -41,7 +41,12 @@ public class JavaApplication1 {
             casoCorona.setSuspeitos(casos.get("Suspeitos"));
             casoCorona.setRecuperados(casos.get("Recuperados"));
             casoCorona.setObitos(casos.get("Óbitos"));
-
+            
+            System.out.println("Confirmados: " + casoCorona.getConfirmados());
+            System.out.println("Suspeitos: " + casoCorona.getSuspeitos());
+            System.out.println("Recuperados: " + casoCorona.getRecuperados());
+            System.out.println("Óbitos: " + casoCorona.getObitos());
+            
             if(casoCorona.getId() == 0){
                 try {
                     casoCoronaDAO.cadastrar(casoCorona);
@@ -58,7 +63,6 @@ public class JavaApplication1 {
                 }
             }
         }
-
     }
 
     private static Document request(){
