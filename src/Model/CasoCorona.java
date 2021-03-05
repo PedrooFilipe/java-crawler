@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Date;
+
 
 public class CasoCorona {
 
@@ -8,7 +10,19 @@ public class CasoCorona {
     private int suspeitos;
     private int recuperados;
     private int obitos;
+    private Date dataPesquisa;
 
+    public CasoCorona() {
+    }
+
+    public CasoCorona(int confirmados, int suspeitos, int recuperados, int obitos, Date dataPesquisa) {
+        this.confirmados = confirmados;
+        this.suspeitos = suspeitos;
+        this.recuperados = recuperados;
+        this.obitos = obitos;
+        this.dataPesquisa = dataPesquisa;
+    }
+    
     public int getId() {
         return id;
     }
@@ -47,5 +61,13 @@ public class CasoCorona {
 
     public void setObitos(int obitos) {
         this.obitos = obitos;
+    }
+
+    public Date getDataPesquisa() {
+        return dataPesquisa;
+    }
+
+    public void setDataPesquisa(Date dataPesquisa) {
+        this.dataPesquisa = dataPesquisa;
     }
 }

@@ -9,7 +9,8 @@ create table casoCorona(
     confirmados int,
     suspeitos int,
     recuperados int,
-    obitos int
+    obitos int,
+    dataPesquisa dateTime
 ) 
 
 2 - Navegue com o cmd/terminal até a pasta dist

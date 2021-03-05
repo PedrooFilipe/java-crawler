@@ -2,6 +2,7 @@ package principal;
 
 import DAO.CasoCoronaDAO;
 import Model.CasoCorona;
+import java.util.Date;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,10 +16,8 @@ public class Main {
     private static String url = "https://acoescoronavirus.uniaodospalmares.al.gov.br";
     private static Map<String, Integer> casos = new HashMap<String, Integer>();
     private static CasoCoronaDAO casoCoronaDAO = new CasoCoronaDAO();
-    private static CasoCorona casoCorona = new CasoCorona();
 
     public static void main(String[] args) {
-        casoCorona = casoCoronaDAO.procurar();
         Document doc = request();
 
         if(doc != null){
@@ -36,31 +35,25 @@ public class Main {
 
                 casos.put(key, value);
             }
-
-            casoCorona.setConfirmados(casos.get("Confirmados"));
-            casoCorona.setSuspeitos(casos.get("Suspeitos"));
-            casoCorona.setRecuperados(casos.get("Recuperados"));
-            casoCorona.setObitos(casos.get("Óbitos"));
+            
+            CasoCorona casoCorona = new CasoCorona(
+                    casos.get("Confirmados"),
+                    casos.get("Suspeitos"),
+                    casos.get("Recuperados"),
+                    casos.get("Óbitos"),
+                    new Date()
+            );
             
             System.out.println("Confirmados: " + casoCorona.getConfirmados());
             System.out.println("Suspeitos: " + casoCorona.getSuspeitos());
             System.out.println("Recuperados: " + casoCorona.getRecuperados());
             System.out.println("Óbitos: " + casoCorona.getObitos());
             
-            if(casoCorona.getId() == 0){
-                try {
-                    casoCoronaDAO.cadastrar(casoCorona);
-                    System.out.println("Dados salvos com sucesso!");
-                }catch (Exception e){
-                    System.out.println("Erro ao salvar dados!");
-                }
-            }else {
-                try{
-                    casoCoronaDAO.atualizar(casoCorona);
-                    System.out.println("Dados alterados com sucesso!");
-                }catch (Exception e){
-                    System.out.println("Erro ao atualizar dados!");
-                }
+            try {
+                casoCoronaDAO.cadastrar(casoCorona);
+                System.out.println("Dados salvos com sucesso!");
+            }catch (Exception e){
+                System.out.println("Erro ao salvar dados!");
             }
         }
     }
